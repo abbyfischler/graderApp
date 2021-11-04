@@ -1,0 +1,68 @@
+#!/bin/bash
+
+make
+
+function usageGrader2() {
+		echo
+	  echo "*** INCORRECT USAGE ***"
+		echo    type the following:
+		echo        . run Grader2 \# \# \#
+		echo
+		echo  where \# represents a grade
+		echo
+}
+
+GRADER2="Grader2"
+IG="InteractiveGrader"
+GRADER3="Grader3"
+TESTGRADER2="testGrader2"
+TESTIG="testInteractiveGrader"
+TESTGRADER3="testGrader3"
+APP=$1
+
+
+if [[ "$APP" = $GRADER2 ]]
+then
+	if [ $# -ne 4 ]
+	then
+		usageGrader2
+	else 
+		java Grader2 $2 $3 $4
+	fi
+elif [[ "$APP" = $IG ]]
+then
+	java InteractiveGrader
+elif [[ "$APP" = $GRADER3 ]]
+then
+	java Grader3
+elif [[ "$APP" = $TESTGRADER2 ]]
+then
+	echo "input: 87 90 88; expected output: B+"
+	java Grader2 87 90 88	
+	echo
+	echo "input: 97 90 88; expected output: A-"
+	java Grader2 97 90 88		
+	echo
+	echo "input: 97 90 70; expected output: B"
+	java Grader2 97 90 70	
+	echo
+	echo "input: 87 88 70; expected output: B-"
+	java Grader2 87 88 70		
+	echo
+	echo "input: 87 58 70; expected output: C-"
+	java Grader2 87 58 70
+elif [[ "$APP" = $TESTIG ]]
+then
+	printf "100\n95\n97\n95\n\100\n999\n" | java InteractiveGrader	
+elif [[ "$APP" = $TESTGRADER3 ]]
+then		
+	printf "a\n100\nb\n90\na\n95\nb\n85\na\n90\nb\n80\nQ\n" |java Grader3
+elif [[ "$APP" != $TESTGRADER2 ||  "$APP" != $TESTGRADER2 || "$APP" != $TESTIG ]];
+then
+echo "testing everything..."
+ . run $TESTGRADER2
+ . run $TESTIG
+ . run $TESTGRADER3
+fi
+
+
